@@ -30,12 +30,42 @@
     <div id="map"></div>
 
     <Script> 
-var map = L.map('map').setView([51.505, -0.09], 13);
+var map = L.map('map').setView([29.6494, -82.3431], 16);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+var marker = L.marker([29.649321,-82.344038]).addTo(map);
+
+var circle = L.circle([29.6494, -82.3431], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+
+var polygon = L.polygon([
+    [29.649516,-82.344366],
+    [29.649540,-82.343663],
+    [29.649031,-82.343636],
+    [29.649008,-82.344307]
+]).addTo(map); 
+
+marker.bindPopup("<b>Hello world!</b><br>This is Turlington.").openPopup();
+circle.bindPopup("University of Florida.");
+polygon.bindPopup("Turlington.");
+
+var popup = L.popup();
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+}
+
+map.on('click', onMapClick);
     </Script>
 </body>
 
